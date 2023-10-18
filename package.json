@@ -1,5 +1,5 @@
 {
-  "name": "newrelic-continuous-automated-testing-action",
+  "name": "@newrelic/continuous-automated-testing-action",
   "version": "0.0.1",
   "private": true,
   "description": "GitHub Action for running New Relic Synthetic automated tests during a GitHub Workflow",
@@ -11,23 +11,20 @@
     "lint": "eslint src/**/*.ts",
     "package": "ncc build --source-map --license licenses.txt",
     "test": "jest",
+    "third-party-updates": "oss third-party manifest --includeOptDeps && oss third-party notices --includeOptDeps && git add THIRD_PARTY_NOTICES.md third_party_manifest.json",
     "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/newrelic-experimental/newrelic-continuous-automated-testing-action"
   },
-  "keywords": [
-    "actions",
-    "node",
-    "setup"
-  ],
+  "keywords": [],
   "author": "New Relic Synthetics",
   "license": "Apache-2.0",
   "dependencies": {
     "@actions/core": "^1.10.0",
-    "@datanerd/synthetics-ci": "^0.0.2",
     "@newrelic/continuous-automated-testing": "^0.1.0",
+    "@newrelic/newrelic-oss-cli": "^0.1.2",
     "graphql-request": "^6.1.0"
   },
   "devDependencies": {
