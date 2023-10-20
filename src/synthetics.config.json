@@ -1,0 +1,29 @@
+{
+    "accountId": 10114925,
+    "region": "STAGING",
+    "verbose": true,
+    "tests": [
+      {
+        "monitorGuid": "MTAxMTQ5MjV8U1lOVEh8TU9OSVRPUnw4YWE4ZmY4ZS1kNzM5LTQ0YzUtYjBjZS03ZDUyZmQ0ZTQ3MTg",
+        "config": {
+          "isBlocking": true,
+          "overrides": {
+            
+          }
+        }
+      },
+      {
+        "monitorGuid": "MTAxMTQ5MjV8U1lOVEh8TU9OSVRPUnw5ZmFkZTM5Mi0wNDVjLTQ3ZGQtOWRiNS1lYTg5YmE1MDk2ZGU",
+        "config": {
+          "isBlocking": true
+        }
+      },
+      {
+        "monitorGuid": "MTAxMTQ5MjV8U1lOVEh8TU9OSVRPUnxmMWVmYjE1MS0wNWI1LTQyZmYtYTRjZC1mZTQ0OGNmMWUzYjY",
+        "config": {
+          "isBlocking": true
+        }
+      }
+  ]
+  }
+  

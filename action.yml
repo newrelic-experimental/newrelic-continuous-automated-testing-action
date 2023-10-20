@@ -1,0 +1,15 @@
+name: 'Continuous Testing CI'
+description: 'Add New Relic Synthetic tests to your GitHub workflow'
+author: 'New Relic'
+inputs:
+  new_relic_api_key:
+    required: true
+    description: 'New Relic API Key'
+    type: string
+  config_file_path:
+    required: true
+    description: 'Relative path to JSON configuration file'
+    type: string
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
