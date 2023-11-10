@@ -10,7 +10,7 @@ import {
 
 export async function run(): Promise<void> {
   try {
-    const NEW_RELIC_API_KEY: string = core.getInput("new_relic_api_key", {
+    const newRelicApiKey: string = core.getInput("new_relic_api_key", {
       required: true,
     });
     const configFilePath: string = core.getInput("config_file_path", {
@@ -23,7 +23,7 @@ export async function run(): Promise<void> {
     );
 
     const testResults: ContinuousAutomatedTestingResults | undefined =
-      await runTestBatch(NEW_RELIC_API_KEY, automatedTestConfig);
+      await runTestBatch(newRelicApiKey, automatedTestConfig);
 
     await buildSummary(testResults);
 

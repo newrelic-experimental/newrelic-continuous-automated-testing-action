@@ -51,7 +51,7 @@ function buildSummary(testResults) {
             test.result == "SUCCESS" ? countSuccess++ : countFailure++;
             let overridesCount = 0;
             if ((_a = test.automatedTestMonitorConfig) === null || _a === void 0 ? void 0 : _a.overrides) {
-                Object.entries((_b = test.automatedTestMonitorConfig) === null || _b === void 0 ? void 0 : _b.overrides).forEach(([key, value]) => {
+                Object.values((_b = test.automatedTestMonitorConfig) === null || _b === void 0 ? void 0 : _b.overrides).forEach((value) => {
                     if (value) {
                         overridesCount++;
                     }

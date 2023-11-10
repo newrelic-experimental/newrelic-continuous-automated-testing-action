@@ -58,7 +58,7 @@ function buildSummary(testResults) {
             test.result == "SUCCESS" ? countSuccess++ : countFailure++;
             let overridesCount = 0;
             if ((_a = test.automatedTestMonitorConfig) === null || _a === void 0 ? void 0 : _a.overrides) {
-                Object.entries((_b = test.automatedTestMonitorConfig) === null || _b === void 0 ? void 0 : _b.overrides).forEach(([key, value]) => {
+                Object.values((_b = test.automatedTestMonitorConfig) === null || _b === void 0 ? void 0 : _b.overrides).forEach((value) => {
                     if (value) {
                         overridesCount++;
                     }
@@ -143,7 +143,7 @@ const buildSummary_1 = __nccwpck_require__(8767);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const NEW_RELIC_API_KEY = core.getInput("new_relic_api_key", {
+            const newRelicApiKey = core.getInput("new_relic_api_key", {
                 required: true,
             });
             const configFilePath = core.getInput("config_file_path", {
@@ -151,7 +151,7 @@ function run() {
             });
             const confFile = fs_1.default.readFileSync(configFilePath);
             const automatedTestConfig = JSON.parse(confFile.toString());
-            const testResults = yield (0, continuous_automated_testing_1.runTestBatch)(NEW_RELIC_API_KEY, automatedTestConfig);
+            const testResults = yield (0, continuous_automated_testing_1.runTestBatch)(newRelicApiKey, automatedTestConfig);
             yield (0, buildSummary_1.buildSummary)(testResults);
             if ((testResults === null || testResults === void 0 ? void 0 : testResults.status) === "PASSED") {
                 core.info("Continous testing complete, tests passed!");

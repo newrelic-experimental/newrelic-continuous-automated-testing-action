@@ -21,8 +21,8 @@ export async function buildSummary(
     test.result == "SUCCESS" ? countSuccess++ : countFailure++;
     let overridesCount = 0;
     if (test.automatedTestMonitorConfig?.overrides) {
-      Object.entries(test.automatedTestMonitorConfig?.overrides).forEach(
-        ([key, value]) => {
+      Object.values(test.automatedTestMonitorConfig?.overrides).forEach(
+        (value) => {
           if (value) {
             overridesCount++;
           }
