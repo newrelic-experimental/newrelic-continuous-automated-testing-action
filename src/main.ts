@@ -27,7 +27,9 @@ export async function run(): Promise<void> {
 
     await buildSummary(testResults);
 
-    core.setOutput("test_results", testResults);
+    core.setOutput("result", testResults.status);
+    core.setOutput("batchId", testResults.batchId);
+    core.setOutput("testResults", testResults.tests);
 
     if (testResults?.status === "PASSED") {
       core.info("Continous testing complete, tests passed!");

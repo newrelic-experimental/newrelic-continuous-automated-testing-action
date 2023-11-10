@@ -11,8 +11,12 @@ inputs:
     description: 'Relative path to JSON configuration file'
     type: string
 outputs:
-  test_results:
-    description: 'Object containing test batch details, such as status, batchId, batchUrl and tests.  The tests object contains details on each individual test executed in the batch.'
+  result:
+    description: 'Result status of entire test batch'
+  batchId:
+    description: 'ID of test batch'
+  testResults:
+    description: 'Results of all individual tests, including configuration information'
 runs:
   using: 'node16'
   main: 'dist/index.js'
