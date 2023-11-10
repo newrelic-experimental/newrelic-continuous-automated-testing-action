@@ -5,7 +5,7 @@ import { runTestBatch } from "@newrelic/continuous-automated-testing";
 import { buildSummary } from "./buildSummary";
 import {
   ContinuousTestingConfiguration,
-  TestResult,
+  ContinuousAutomatedTestingResults,
 } from "@newrelic/continuous-automated-testing/dist/lib/interfaces";
 
 export async function run(): Promise<void> {
@@ -22,10 +22,8 @@ export async function run(): Promise<void> {
       confFile.toString()
     );
 
-    const testResults: TestResult | undefined = await runTestBatch(
-      NEW_RELIC_API_KEY,
-      automatedTestConfig
-    );
+    const testResults: ContinuousAutomatedTestingResults | undefined =
+      await runTestBatch(NEW_RELIC_API_KEY, automatedTestConfig);
 
     await buildSummary(testResults);
 

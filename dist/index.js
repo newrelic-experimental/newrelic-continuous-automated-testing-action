@@ -54,21 +54,25 @@ function buildSummary(testResults) {
             { data: "Error", header: true },
         ]);
         testResults.tests.map((test) => {
-            var _a, _b, _c, _d;
+            var _a, _b, _c, _d, _e;
             test.result == "SUCCESS" ? countSuccess++ : countFailure++;
             let overridesCount = 0;
             if ((_a = test.automatedTestMonitorConfig) === null || _a === void 0 ? void 0 : _a.overrides) {
-                overridesCount += Object.keys(test.automatedTestMonitorConfig.overrides).length;
+                Object.entries((_b = test.automatedTestMonitorConfig) === null || _b === void 0 ? void 0 : _b.overrides).forEach(([key, value]) => {
+                    if (value) {
+                        overridesCount++;
+                    }
+                });
             }
             arr.push([
                 test.monitorName,
                 test.result == "SUCCESS"
                     ? `🟢&nbsp;${test.result}`
                     : `🔴&nbsp;${test.result}`,
-                ((_c = (_b = test.automatedTestMonitorConfig) === null || _b === void 0 ? void 0 : _b.isBlocking) === null || _c === void 0 ? void 0 : _c.toString()) || "false",
+                ((_d = (_c = test.automatedTestMonitorConfig) === null || _c === void 0 ? void 0 : _c.isBlocking) === null || _d === void 0 ? void 0 : _d.toString()) || "false",
                 `<a href=${test.resultsUrl}>View Details</a>`,
                 overridesCount.toString(),
-                ((_d = test.error) === null || _d === void 0 ? void 0 : _d.toString()) || "",
+                ((_e = test.error) === null || _e === void 0 ? void 0 : _e.toString()) || "",
             ]);
         });
         const resultHeader = `
@@ -80,7 +84,7 @@ function buildSummary(testResults) {
             .addHeading("Results")
             .addHeading(resultHeader, 5)
             .addTable(arr)
-            .addLink("View detailed test results", "https://github.com")
+            .addLink("View detailed test results", testResults.batchUrl)
             .write();
         return arr;
     });
@@ -136,11 +140,9 @@ const core = __importStar(__nccwpck_require__(2186));
 const fs_1 = __importDefault(__nccwpck_require__(7147));
 const continuous_automated_testing_1 = __nccwpck_require__(1779);
 const buildSummary_1 = __nccwpck_require__(8767);
-const process_1 = __nccwpck_require__(7282);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            process_1.stdout.write("TEST");
             const NEW_RELIC_API_KEY = core.getInput("new_relic_api_key", {
                 required: true,
             });
@@ -2076,7 +2078,13 @@ function runTestBatch(apiKey, config) {
             waitingForResultsSpinner.succeed();
             const verboseLogging = config.verbose || false;
             yield (0, utils_1.outputResults)(batchId, batchUrl, testResults, verboseLogging);
-            return testResults;
+            const continuousAutomatedTestingResults = {
+                batchId: batchId,
+                batchUrl: batchUrl,
+                status: testResults.status,
+                tests: testResults.tests,
+            };
+            return continuousAutomatedTestingResults;
         }
         catch (error) {
             let errorMessage = "";
@@ -2334,11 +2342,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.generateBatchUrl = void 0;
+exports.generateBatchUrl = exports.NERDGRAPH_URL_BY_REGION = void 0;
 const STAGING_HOST = "https://staging-one.newrelic.com";
 const PRD_US_HOST = "https://one.newrelic.com";
 const PRD_EU_HOST = "https://one.eu.newrelic.com";
-const NERDGRAPH_URL_BY_REGION = new Map([
+exports.NERDGRAPH_URL_BY_REGION = new Map([
     ["STAGING", STAGING_HOST],
     ["US", PRD_US_HOST],
     ["EU", PRD_EU_HOST],
@@ -2351,7 +2359,7 @@ function generateBatchUrl(batchId, config) {
             batchId: batchId,
         };
         const encodedPane = btoa(JSON.stringify(json));
-        return `${NERDGRAPH_URL_BY_REGION.get(config.region)}/launcher/automated-testing.batch-detail-list?pane=${encodedPane}`;
+        return `${exports.NERDGRAPH_URL_BY_REGION.get(config.region)}/launcher/automated-testing.batch-detail-list?pane=${encodedPane}`;
     });
 }
 exports.generateBatchUrl = generateBatchUrl;
@@ -38460,14 +38468,6 @@ module.exports = require("os");
 
 "use strict";
 module.exports = require("path");
-
-/***/ }),
-
-/***/ 7282:
-/***/ ((module) => {
-
-"use strict";
-module.exports = require("process");
 
 /***/ }),
 

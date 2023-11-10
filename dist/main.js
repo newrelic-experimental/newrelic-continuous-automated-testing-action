@@ -40,11 +40,9 @@ const core = __importStar(require("@actions/core"));
 const fs_1 = __importDefault(require("fs"));
 const continuous_automated_testing_1 = require("@newrelic/continuous-automated-testing");
 const buildSummary_1 = require("./buildSummary");
-const process_1 = require("process");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            process_1.stdout.write("TEST");
             const NEW_RELIC_API_KEY = core.getInput("new_relic_api_key", {
                 required: true,
             });

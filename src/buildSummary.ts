@@ -1,8 +1,10 @@
 import * as core from "@actions/core";
 import { SummaryTableRow } from "@actions/core/lib/summary";
-import { TestResult } from "@newrelic/continuous-automated-testing/dist/lib/interfaces";
+import { ContinuousAutomatedTestingResults } from "@newrelic/continuous-automated-testing/dist/lib/interfaces";
 
-export async function buildSummary(testResults: TestResult) {
+export async function buildSummary(
+  testResults: ContinuousAutomatedTestingResults
+) {
   let countSuccess = 0,
     countFailure = 0;
   const arr: Array<SummaryTableRow> = [];
@@ -19,9 +21,13 @@ export async function buildSummary(testResults: TestResult) {
     test.result == "SUCCESS" ? countSuccess++ : countFailure++;
     let overridesCount = 0;
     if (test.automatedTestMonitorConfig?.overrides) {
-      overridesCount += Object.keys(
-        test.automatedTestMonitorConfig.overrides
-      ).length;
+      Object.entries(test.automatedTestMonitorConfig?.overrides).forEach(
+        ([key, value]) => {
+          if (value) {
+            overridesCount++;
+          }
+        }
+      );
     }
 
     arr.push([
@@ -48,7 +54,7 @@ export async function buildSummary(testResults: TestResult) {
     .addHeading("Results")
     .addHeading(resultHeader, 5)
     .addTable(arr)
-    .addLink("View detailed test results", "https://github.com")
+    .addLink("View detailed test results", testResults.batchUrl)
     .write();
   return arr;
 }
