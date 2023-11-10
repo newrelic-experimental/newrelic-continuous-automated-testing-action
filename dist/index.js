@@ -153,6 +153,7 @@ function run() {
             const automatedTestConfig = JSON.parse(confFile.toString());
             const testResults = yield (0, continuous_automated_testing_1.runTestBatch)(newRelicApiKey, automatedTestConfig);
             yield (0, buildSummary_1.buildSummary)(testResults);
+            core.setOutput("test_results", testResults);
             if ((testResults === null || testResults === void 0 ? void 0 : testResults.status) === "PASSED") {
                 core.info("Continous testing complete, tests passed!");
             }
