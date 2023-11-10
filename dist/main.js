@@ -40,12 +40,10 @@ const core = __importStar(require("@actions/core"));
 const fs_1 = __importDefault(require("fs"));
 const continuous_automated_testing_1 = require("@newrelic/continuous-automated-testing");
 const buildSummary_1 = require("./buildSummary");
-const process_1 = require("process");
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            process_1.stdout.write("TEST");
-            const NEW_RELIC_API_KEY = core.getInput("new_relic_api_key", {
+            const newRelicApiKey = core.getInput("new_relic_api_key", {
                 required: true,
             });
             const configFilePath = core.getInput("config_file_path", {
@@ -53,8 +51,11 @@ function run() {
             });
             const confFile = fs_1.default.readFileSync(configFilePath);
             const automatedTestConfig = JSON.parse(confFile.toString());
-            const testResults = yield (0, continuous_automated_testing_1.runTestBatch)(NEW_RELIC_API_KEY, automatedTestConfig);
+            const testResults = yield (0, continuous_automated_testing_1.runTestBatch)(newRelicApiKey, automatedTestConfig);
             yield (0, buildSummary_1.buildSummary)(testResults);
+            core.setOutput("result", testResults.status);
+            core.setOutput("batchId", testResults.batchId);
+            core.setOutput("testResults", testResults.tests);
             if ((testResults === null || testResults === void 0 ? void 0 : testResults.status) === "PASSED") {
                 core.info("Continous testing complete, tests passed!");
             }

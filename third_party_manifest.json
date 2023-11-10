@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "Wed Oct 18 2023 00:48:39 GMT-0600 (Mountain Daylight Time)",
+  "lastUpdated": "Thu Nov 09 2023 16:56:32 GMT-0700 (Mountain Standard Time)",
   "projectName": "@newrelic/continuous-automated-testing-action",
   "projectUrl": "https://github.com/newrelic-experimental/newrelic-continuous-automated-testing-action",
   "includeOptDeps": true,
@@ -16,6 +16,18 @@
       "licenseUrl": "https://github.com/actions/toolkit/blob/v1.10.0/LICENSE.md",
       "licenseTextSource": "file"
     },
+    "@newrelic/continuous-automated-testing@0.1.2": {
+      "name": "@newrelic/continuous-automated-testing",
+      "version": "0.1.2",
+      "range": "^0.1.2",
+      "licenses": "Apache-2.0",
+      "repoUrl": "https://github.com/newrelic-experimental/newrelic-continuous-automated-testing",
+      "versionedRepoUrl": "https://github.com/newrelic-experimental/newrelic-continuous-automated-testing/tree/v0.1.2",
+      "licenseFile": "node_modules/@newrelic/continuous-automated-testing/LICENSE",
+      "licenseUrl": "https://github.com/newrelic-experimental/newrelic-continuous-automated-testing/blob/v0.1.2/LICENSE",
+      "licenseTextSource": "file",
+      "publisher": "New Relic Synthetics Team"
+    },
     "@newrelic/newrelic-oss-cli@0.1.2": {
       "name": "@newrelic/newrelic-oss-cli",
       "version": "0.1.2",
@@ -25,18 +37,6 @@
       "versionedRepoUrl": "https://github.com/newrelic/newrelic-oss-cli/tree/v0.1.2",
       "licenseFile": "node_modules/@newrelic/newrelic-oss-cli/LICENSE",
       "licenseUrl": "https://github.com/newrelic/newrelic-oss-cli/blob/v0.1.2/LICENSE",
-      "licenseTextSource": "file",
-      "publisher": "New Relic"
-    },
-    "@newrelic/continuous-automated-testing@0.1.0": {
-      "name": "@newrelic/continuous-automated-testing",
-      "version": "0.1.0",
-      "range": "^0.1.0",
-      "licenses": "Apache-2.0",
-      "repoUrl": "https://github.com/newrelic-experimental/newrelic-continuous-automated-testing",
-      "versionedRepoUrl": "https://github.com/newrelic-experimental/newrelic-continuous-automated-testing/tree/v0.1.0",
-      "licenseFile": "node_modules/@newrelic/continuous-automated-testing/LICENSE",
-      "licenseUrl": "https://github.com/newrelic-experimental/newrelic-continuous-automated-testing/blob/v0.1.0/LICENSE",
       "licenseTextSource": "file",
       "publisher": "New Relic"
     },

@@ -47,21 +47,25 @@ function buildSummary(testResults) {
             { data: "Error", header: true },
         ]);
         testResults.tests.map((test) => {
-            var _a, _b, _c, _d;
+            var _a, _b, _c, _d, _e;
             test.result == "SUCCESS" ? countSuccess++ : countFailure++;
             let overridesCount = 0;
             if ((_a = test.automatedTestMonitorConfig) === null || _a === void 0 ? void 0 : _a.overrides) {
-                overridesCount += Object.keys(test.automatedTestMonitorConfig.overrides).length;
+                Object.values((_b = test.automatedTestMonitorConfig) === null || _b === void 0 ? void 0 : _b.overrides).forEach((value) => {
+                    if (value) {
+                        overridesCount++;
+                    }
+                });
             }
             arr.push([
                 test.monitorName,
                 test.result == "SUCCESS"
                     ? `🟢&nbsp;${test.result}`
                     : `🔴&nbsp;${test.result}`,
-                ((_c = (_b = test.automatedTestMonitorConfig) === null || _b === void 0 ? void 0 : _b.isBlocking) === null || _c === void 0 ? void 0 : _c.toString()) || "false",
+                ((_d = (_c = test.automatedTestMonitorConfig) === null || _c === void 0 ? void 0 : _c.isBlocking) === null || _d === void 0 ? void 0 : _d.toString()) || "false",
                 `<a href=${test.resultsUrl}>View Details</a>`,
                 overridesCount.toString(),
-                ((_d = test.error) === null || _d === void 0 ? void 0 : _d.toString()) || "",
+                ((_e = test.error) === null || _e === void 0 ? void 0 : _e.toString()) || "",
             ]);
         });
         const resultHeader = `
@@ -73,7 +77,7 @@ function buildSummary(testResults) {
             .addHeading("Results")
             .addHeading(resultHeader, 5)
             .addTable(arr)
-            .addLink("View detailed test results", "https://github.com")
+            .addLink("View detailed test results", testResults.batchUrl)
             .write();
         return arr;
     });

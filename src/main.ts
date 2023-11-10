@@ -5,12 +5,12 @@ import { runTestBatch } from "@newrelic/continuous-automated-testing";
 import { buildSummary } from "./buildSummary";
 import {
   ContinuousTestingConfiguration,
-  TestResult,
+  ContinuousAutomatedTestingResults,
 } from "@newrelic/continuous-automated-testing/dist/lib/interfaces";
 
 export async function run(): Promise<void> {
   try {
-    const NEW_RELIC_API_KEY: string = core.getInput("new_relic_api_key", {
+    const newRelicApiKey: string = core.getInput("new_relic_api_key", {
       required: true,
     });
     const configFilePath: string = core.getInput("config_file_path", {
@@ -22,12 +22,14 @@ export async function run(): Promise<void> {
       confFile.toString()
     );
 
-    const testResults: TestResult | undefined = await runTestBatch(
-      NEW_RELIC_API_KEY,
-      automatedTestConfig
-    );
+    const testResults: ContinuousAutomatedTestingResults | undefined =
+      await runTestBatch(newRelicApiKey, automatedTestConfig);
 
     await buildSummary(testResults);
+
+    core.setOutput("result", testResults.status);
+    core.setOutput("batchId", testResults.batchId);
+    core.setOutput("testResults", testResults.tests);
 
     if (testResults?.status === "PASSED") {
       core.info("Continous testing complete, tests passed!");

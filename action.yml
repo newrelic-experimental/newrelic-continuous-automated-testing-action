@@ -10,6 +10,13 @@ inputs:
     required: true
     description: 'Relative path to JSON configuration file'
     type: string
+outputs:
+  result:
+    description: 'Result status of entire test batch'
+  batchId:
+    description: 'ID of test batch'
+  testResults:
+    description: 'Results of all individual tests, including configuration information'
 runs:
   using: 'node16'
   main: 'dist/index.js'
