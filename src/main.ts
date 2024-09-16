@@ -32,9 +32,9 @@ export async function run(): Promise<void> {
     core.setOutput("testResults", testResults.tests);
 
     if (testResults?.status === "PASSED") {
-      core.info("Continous testing complete, tests passed!");
+      core.info("Continuous testing complete, tests passed!");
     } else {
-      core.setFailed("Continous testing complete, tests did not pass!");
+      core.setFailed("Continuous testing complete, tests did not pass!");
     }
   } catch (error) {
     console.log(error);
